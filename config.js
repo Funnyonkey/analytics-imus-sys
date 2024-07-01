@@ -7,10 +7,10 @@
 // };
 
 const config = {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'peso_db'
+    host: 'sql.freedb.tech',
+    user: 'freedb_peso_admin',
+    password: 'qJnJ!4U!qPe7Aw5',
+    database: 'freedb_peso_db'
 };
 
 module.exports = config; 
