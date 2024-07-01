@@ -1,0 +1,53 @@
+*{
+    font-family: sans-serif;
+}
+body{
+    background-color: #F3F4F8;
+    font-size: 16px;
+}
+.carousel-inner{
+    padding-top: 56px;
+}
+    #carousel button{
+        padding-top: 56px;
+    }
+/* Login Modal */
+.modal-dialog{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.modal-header, .modal-footer{
+    border: none;
+    background-color: white;
+}
+    .modal-header h1{
+        text-align: center;
+        width: 100%;
+    }
+.modal-body form label{
+    display: block;
+    border: 1px solid #038aff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+    .modal-body form label input{
+        display: block;
+        width: 100%;
+        border: none;
+        outline: none;
+    }
+/* Message Modal */
+#messageAlert{
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#messageAlert div{
+    width: 35%;
+    display: none;
+    margin: 0 auto;
+}

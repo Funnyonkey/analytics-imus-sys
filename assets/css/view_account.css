@@ -1,0 +1,19 @@
+#accountForm{
+    margin-top: 100px;
+    /* border: 1px solid gray; */
+    /* padding: 0 !important; */
+    /* margin: 0 !important; */
+}
+.account-information-header{
+    position: relative;
+}
+.account-information-header .close_account_information {
+    position: absolute;
+    z-index: 5;
+    right: 14px;
+    top: 10px;
+}
+.close_account_information{
+    width: 35px;
+    /* border: 1px solid black; */
+}
