@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>PESO Imus</title> -->
+    <title>User View Form</title>
+    <link rel="icon" type="image/png" href="/images/peso-logo.png">
+    <!-- jQuery 3.3.1 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap 5.3 -->
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- CSS and JavaScript -->
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/loginModal.css">
+    <link rel="stylesheet" href="/css/admin_form.css">
+    <script src="/js/loginModal.js"></script>
+    <script src="/js/admin_control.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg text-white custom-nav">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-title" href="#">PESO IMUS</a>
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="/images/menu.svg" alt="Menu icon">
+            </button>
+            <div class="collapse navbar-collapse row custom-links" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="/dashboard">Record</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/data_analytics">Data Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_apply">Fill-Up Form</a>
+                    </li>
+                    <li class="nav-item custom-nav-item d-flex justify-content-end align-items-center">
+                        <div class="" id="username" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <p class="m-0"></p>
+                            <img class="" src="/images/arrow_down.svg" alt="Arrow down icon">
+                        </div>
+                        <button id="navLoginBtn" type="button" class="m-0 btn bg-primary text-white mx-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Main -->
+    <main class="row m-0">
+        <!-- Sidebar link -->
+        <div class="col-md-3 col-sm-3 form-section px-0">
+            <div class="side-bar-links">
+                <a class="page1" href="#">Personal Information</a>
+                <a class="page2" href="#">Job Preference</a>
+                <a class="page3" href="#">Language / Dialect Proficiency</a>
+                <a class="page4" href="#">Educational Background</a>
+                <a class="page5" href="#">Technical / Vocation / Training</a>
+                <a class="page6" href="#">Eligibility / Professional License</a>
+                <a class="page7" href="#">Work Experience</a>
+                <a class="page8" href="#">Other Skills Acquired with Formal Training</a>
+            </div>
+            <figure id="arrow-icon" class="col-sm-2">
+                <img id="arrow-forward" src="/images/arrow_forward.svg" alt="Arrow forward icon">
+                <img id="arrow-back" src="/images/arrow_back.svg" alt="Arrow back icon">
+            </figure>
+        </div>
+        <!-- Personal Information --> 
+        <form class="col-md-9 col-sm-9 col-12 form-content personal-information" id="page1">
+            <header>
+                <h4>Personal Information</h4>
+            </header>   
+            <div class="row custom-form complete-name">
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].surname %>" class="form-control" type="text" name="surname" placeholder="Surname">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].firstname %>" class="form-control" type="text" name="firstname" placeholder="First name">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].middlename %>" class="form-control" type="text" name="middlename" placeholder="Middle name">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].suffix %>" class="form-control" type="text" name="suffix" placeholder="Suffix">
+                </div>
+            </div>
+            <div class="row custom-form second-info">
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].birthdate %>" class="form-control" type="text" name="birthdate" placeholder="Birthdate">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].email %>" class="form-control" type="email" name="email" placeholder="Email">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].contact %>" class="form-control" type="text" name="contact" placeholder="Contact">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= row[0].height %>" class="form-control" type="text" name="height" placeholder="Height">
+                </div>
+            </div>
+            <div class="row custom-form">
+                <div class="col-md-3 col-sm-6 col-6 mt-3">
+                    Gender
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="male" <% if(row[0].gender === "male") { %> checked <% } %>>
+                        <label class="form-check-label" for="male">Male</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="female" <% if(row[0].gender === "female") { %> checked <% } %>>
+                        <label class="form-check-label" for="female">Female</label>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-6 mt-3">
+                    Civil Status
+                    <% const civilStatuses = ["single", "married", "widowed"]; %>
+                    <% civilStatuses.forEach(status => { %>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="civil_status" id="<%= status %>" value="<%= status %>" <% if(row[0].civil_status === status) { %> checked <% } %>>
+                            <label class="form-check-label" for="<%= status %>"><%= status.charAt(0).toUpperCase() + status.slice(1) %></label>
+                        </div>
+                    <% }); %>
+                </div>
+                <div class="col-lg-6 col-md-3 col-sm-6 col-6 mt-3">
+                    <% let disability = JSON.parse(row[0].disability) %>
+                    <div>Disability</div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                                <div class="form-check">
+                                <input class="form-check-input disability" type="checkbox" id="visual" value="visual"  <% Object.keys(disability).forEach(key => { if(disability[key] === "visual"){ %> checked <% } }); %> >
+                                <label class="form-check-label" for="visual">Visual</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input disability" type="checkbox" id="hearing" value="hearing" <% Object.keys(disability).forEach(key => { if(disability[key] === "hearing"){ %> checked <% } }); %> >
+                                <label class="form-check-label" for="hearing">Hearing</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input disability" type="checkbox" id="speech" value="speech"  <% Object.keys(disability).forEach(key => { if(disability[key] === "speech"){ %> checked <% } }); %> >
+                                <label class="form-check-label" for="speech">Speech</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-check">
+                                <input class="form-check-input disability" type="checkbox" id="physical" value="physical"  <% Object.keys(disability).forEach(key => { if(disability[key] === "physical"){ %> checked <% } }); %> >
+                                <label class="form-check-label" for="physical">Physical</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input disability" type="checkbox" id="mental" value="mental"  <% Object.keys(disability).forEach(key => { if(disability[key] === "mental"){ %> checked <% } }); %> >
+                                <label class="form-check-label" for="mental">Mental</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input other_disability" type="checkbox" id="disability_others"  <% Object.keys(disability).forEach(key => { if(key === "other"){ %> checked <% } }); %> >
+                                <label class="form-check-label" for="disability_others">Others</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 ">
+                        <% let otherDisability = ''; %>
+                        <% Object.keys(disability).forEach(key => { %>
+                            <% if (key === 'other') { %>
+                                <% otherDisability = disability[key]; %>
+                            <% } %>
+                        <% }); %>
+                        <label>Please specify</label>
+                        <input value="<%= otherDisability %>" class="col-12 form-control input_other_disability" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row custom-form pt-3 religion">
+                <div class="col-md-3 col-sm-6 mt-3">
+                    <input value="<%= row[0].religion %>" class="form-control" type="text" name="religion" placeholder="Religion">
+                </div>
+                <div class="col-md-3 col-sm-6 mt-3">
+                </div>
+            </div>
+            <div class="row custom-form pt-3 address">
+                <% let address = JSON.parse(row[0].address); %>
+                <div class="col-md-12 col-sm-12">Present Address</div>
+                <input name="address" type="hidden" value="na">
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= address.province %>" class="form-control province" type="text" placeholder="Province">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= address.city_municipality %>" class="form-control city_municipality" type="text" placeholder="City or municipality">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= address.barangay %>" class="form-control barangay" type="text" placeholder="Barangay">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 mt-3">
+                    <input value="<%= address.house_no_street %>" class="form-control house_no_street" type="text" placeholder="House No. / Street">
+                </div>
+            </div>
+            <div class="row custom-form pt-3">
+                <% let employmentStatus = JSON.parse(row[0].employment_status); %>
+                <div class="col-md-12">Employment Status / Type</div>
+                <input type="hidden" name="employment_status" value="{}">
+                <!-- Employed -->
+                <div class="col-lg-6 col-md-12 mt-3 employed">
+                    <div class="form-check">
+                        <input class="form-check-input" id="employed" type="checkbox" value="employed"
+                        <% if(employmentStatus.employment_status === "employed"){ %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="employed">Employed</label>
+                    </div>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input employed_type wage_employed" type="checkbox" value="wage employed"
+                            <% if(employmentStatus.employed_type === "wage employed"){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="checkbox">Wage Employed</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input employed_type self_employed" type="checkbox" value="self employed"
+                            <% if(employmentStatus.employed_type === "self employed"){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="self_employed">Self Employed (Please specify)</label>
+                        </div>        
+                    </div>
+                    <div>
+                        <%
+                        let job = employmentStatus.job;
+                        %>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" value="fisherman/fisherfolk"
+                            <% if(job && Object.values(job).includes('fisherman/fisherfolk')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="fisherman">Fisherman/Fisherfolk</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" id="vendor" value="vendor/retailer"
+                            <% if(job && Object.values(job).includes('vendor/retailer')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="vendor">Vendor/Retailer</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" id="home_based_worker" value="home based worker"
+                            <% if(job && Object.values(job).includes('home based worker')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="home_based_worker">Home-based worker</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" id="transport" value="transport"
+                            <% if(job && Object.values(job).includes('transport')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="transport">Transport</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" id="domestic" value="domestic"
+                            <% if(job && Object.values(job).includes('domestic')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="domestic">Domestic Worker</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" id="freelancer" value="freelancer"
+                            <% if(job && Object.values(job).includes('freelancer')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="freelancer">Freelancer</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input job" type="checkbox" id="artisan_craft_worker" value="artisan/craft worker"
+                            <% if(job && Object.values(job).includes('artisan/craft worker')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="artisan_craft_worker">Artisan/Craft Worker</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input other_job" type="checkbox"
+                            <% if(job && job.hasOwnProperty('other')){ %>
+                                checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="other_job">Others</label>
+                        </div>
+                        <div class="mt-2">
+                            <%
+                            let otherJob = ""; 
+                            if(job && Object.keys(job).includes("other")){ 
+                                otherJob = job['other'];
+                            }
+                            %>
+                            <input value="<%= otherJob %>" class="form-control input_other_job" type="text">
+                        </div>
+                    </div>
+                </div>
+                <!-- Unemployed -->
+                <div class="col-lg-6 col-md-12 mt-3 unemployed">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="unemployed" value="unemployed"
+                        <% if(employmentStatus.employment_status === "unemployed"){ %>
+                            checked
+                            <% } %>
+                        >
+                        <label class="form-check-label" for="unemployed">Unemployed</label>
+                    </div>
+                    <div class="">
+                        <label>How long have you been looking for work?</label>
+                        <input value="<%= employmentStatus.how_long_looking_for_work %>" class="form-control how_long_looking_for_work" type="text">
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type" type="checkbox" id="new_entrant_fresh_graduate" value="new entrant or fresh graduate" 
+                                <% if(employmentStatus.unemployed_type === "new entrant or fresh graduate"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="new_entrant">New Entrant/Fresh Graduate</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type" type="checkbox" id="finished_contract" value="finished contract"
+                                <% if(employmentStatus.unemployed_type === "finished contract"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="finished_contract">Finished Contract</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type" type="checkbox" id="resigned" value="resigned" 
+                                <% if(employmentStatus.unemployed_type === "resigned"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="resigned">Resigned</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type" type="checkbox" id="retired" value="retired"
+                                <% if(employmentStatus.unemployed_type === "retired"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="retired">Retired</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type" type="checkbox" id="laid_off_due_calamity" value="terminated/laid off due calamity"
+                                <% if(employmentStatus.unemployed_type === "terminated/laid off due calamity"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="laid_off_due_calamity">Terminated/Laid off due to calamity</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type" type="checkbox" id="laid_off_local" value="terminated/laid off (local)"
+                                <% if(employmentStatus.unemployed_type === "terminated/laid off (local)"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="laid_off_local">Terminated/Laid off (local)</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input unemployed_type laid_off_abroad" type="checkbox" value="terminated/laid off (abroad)"
+                                <% if(employmentStatus.unemployed_type === "terminated/laid off (abroad)"){ %>
+                                    checked
+                                    <% } %>
+                                >
+                                <label class="form-check-label" for="laid_off_abroad">Terminated/Laid off (abroad)</label>
+                            </div>
+                            <div class="mt-2 d-inline-block">
+                                <input value="<%= employmentStatus.country %>" class="form-control input_laid_off_abroad" type="text">
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input other_unemployed_type" type="checkbox" id="unemployed_others" value="na"
+                                <% if (employmentStatus.hasOwnProperty('other') && employmentStatus.other !== "") { %>
+                                    checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="unemployed_others">Others</label>
+                            </div>
+                            <div class="mt-2 d-inline-block">
+                                <%
+                                let otherUnemployed = ""; 
+                                if(Object.keys(employmentStatus).includes("other")){ 
+                                    otherUnemployed = employmentStatus['other'];
+                                }
+                                %>
+                                <input value="<%= otherUnemployed %>" class="form-control input_other_unemployed_type" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3">
+                <div class="col-lg-6">
+                    <% let isOfw = JSON.parse(row[0].is_ofw); %>
+                    <div>Are you an OFW?</div>
+                    <input type="hidden" name="is_ofw" value="{}">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="yes_ofw" value="na"
+                        <% if(isOfw.is_ofw !== "no"){ %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="yes_ofw">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="no_ofw" value="no"
+                        <% if(isOfw.is_ofw === "no"){ %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="no_ofw">No</label>
+                    </div>
+                    <div class="mt-2 d-inline-block col-lg-8">
+                        <% 
+                        let country = '';
+                        if(isOfw.is_ofw !== 'no'){ 
+                            country = isOfw.is_ofw;
+                        } 
+                        %>
+                        <label for="">Specify country</label>
+                        <input value="<%=country%>" class="form-control input_ofw_country" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div>Are you a former OFW?</div>
+                <input type="hidden" name="is_former_ofw" value="{}">
+                <div class="col-lg-6">
+                    <div class="form-check form-check-inline">
+                        <% let isFormerOfw = JSON.parse(row[0].is_former_ofw); %>
+                        <div><%=  %></div>
+                        <input class="form-check-input yes_former_ofw" type="checkbox"
+                        <% if(isFormerOfw.country !== "" && isFormerOfw.is_former_ofw !== "no"){ %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="yes_former_ofw">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input no_former_ofw" type="checkbox" value="no"
+                        <% 
+                        if(isFormerOfw.is_former_ofw === "no"){ 
+                        %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="no_former_ofw">No</label>
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <% 
+                        let formerCountry = "";
+                        let monthYear = "";
+                        if(isFormerOfw.country !== ""){ 
+                            formerCountry = isFormerOfw.country;
+                            monthYear = isFormerOfw.month_year;
+                         } %>
+                        <label for="">Latest country of deployment</label>
+                        <input value="<%= formerCountry %>" class="form-control ofw_former_country" type="text">
+                    </div>
+                    <div class="col-lg-12 mt-3">
+                        <label for="">Month and year of return to Philippines</label>
+                        <input value="<%= monthYear %>" class="form-control month_year_return_ph" type="text">
+                    </div>
+                </div> 
+            </div>
+            <div class="row mt-3">
+                <div class="col-lg-6">
+                    <% let beneficiary = JSON.parse(row[0].is_4ps_beneficiary); %>
+                    <div>Are you a 4ps beneficiary?</div>
+                    <input type="hidden" name="is_4ps_beneficiary" value="{}">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input yes_4ps_beneficiary" type="checkbox"
+                        <% if(beneficiary.is_4ps_beneficiary === "yes"){ %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="yes">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input no_4ps_beneficiary" type="checkbox" value="no"
+                        <% if(beneficiary.is_4ps_beneficiary === "no"){ %>
+                        checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="no">No</label>
+                    </div>
+                    <div class="mt-3">
+                        <%
+                        let householdNo = "";
+                        if(beneficiary.is_4ps_beneficiary === "yes"){
+                            householdNo = beneficiary.household_no;
+                        }
+                        %>
+                        <label>If yes, please provide Household ID No.</label>
+                        <input value="<%= householdNo %>" class="form-control 4ps_household_no" type="text">
+                    </div>
+                </div>
+            </div>
+            <footer class="">
+                <button class="btn btn-primary my-3 float-end btn-next">Next</button>
+            </footer>
+        </form>
+        <!-- Job Preference -->
+        <form class="col-md-9 col-sm-9 col-12 form-content job-preference" id="page2">
+            <header>
+                <h4>Job Preference</h4>    
+            </header>
+            <div class="row">
+                <div class="col-lg-5 pt-3">
+                    <div>Preferred Occupation</div>
+                    <input type="hidden" name="preferred_occupation" value="{}">
+                    <div class="mt-2">
+                        <%
+                        let preferredOccupation = JSON.parse(row[0].preferred_occupation);
+                        %>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input type_preferred_occupation" type="checkbox" id="part-time" value="part time"
+                            <% if(preferredOccupation && preferredOccupation.type_preferred_occupation === "part time"){ %>
+                            checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="part-time">Part-time</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input type_preferred_occupation" type="checkbox" id="full-time" value="full time"
+                            <% if(preferredOccupation && preferredOccupation.type_preferred_occupation === "full time"){ %>
+                            checked
+                            <% } %>
+                            >
+                            <label class="form-check-label" for="full-time">Full-time</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="occupation" value="{}">
+                    <%
+                    let occupation = JSON.parse(row[0].occupation);
+                    %>
+                    <div class="mt-3">
+                        <%
+                        let occupation1 = "";
+                        if(occupation && occupation.occupation1 !== ""){
+                            occupation1 = occupation.occupation1;
+                        }
+                        %>
+                        <label>Occupation 1</label>
+                        <input value="<%= occupation1 %>" class="form-control input_occupation preferred_occupation1" type="text">                        
+                    </div>
+                    <div class="mt-3">
+                        <%
+                        let occupation2 = "";
+                        if(occupation && occupation.occupation2 !== ""){
+                            occupation2 = occupation.occupation2;
+                        }
+                        %>
+                        <label>Occupation 2</label>
+                        <input value="<%= occupation2 %>" class="form-control input_occupation preferred_occupation2" type="text">                        
+                    </div>
+                    <div class="mt-3">
+                        <%
+                        let occupation3 = "";
+                        if(occupation && occupation.occupation3 !== ""){
+                            occupation3 = occupation.occupation3;
+                        }
+                        %>
+                        <label>Occupation 3</label>
+                        <input value="<%= occupation3 %>" class="form-control input_occupation preferred_occupation3" type="text">                        
+                    </div>
+                </div>
+                <div class="col-lg-7 pt-3">
+                    <% 
+                    let preferredWorkOccupation = JSON.parse(row[0].preferred_work_occupation); 
+                    %>
+                    <div>Preferred Work Occupation</div>
+                    <div><%=  %></div>
+                    <input type="hidden" name="preferred_work_occupation" value="{}">
+                    <div class="row">
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input type_work_occupation" type="checkbox" id="local" value="local"
+                                <% if(preferredWorkOccupation && preferredWorkOccupation.type_work_occupation === "local"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="local">Local 
+                                    <span>(specify cities/municipalities)</span>
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input type_work_occupation" type="checkbox" id="overseas" value="overseas"
+                                <% if(preferredWorkOccupation && preferredWorkOccupation.type_work_occupation === "overseas"){ %>
+                                checked
+                                <% } %>
+                                >
+                                <label class="form-check-label" for="overseas">Overseas
+                                    <span>(specify countries)</span>
+                                </label>
+                            </div>
+                            <% let location = JSON.parse(row[0].work_occupation); %>
+                            <input type="hidden" name="work_occupation" value="{}">
+                            <div class="mt-3">
+                                <label>Work Location 1</label>
+                                <%
+                                let location1 = "";
+                                if(location && location.location1 !== ""){
+                                    location1 = location.location1;
+                                }
+                                %>
+                                <input value="<%= location1 %>" class="form-control input_address location1" type="text">                        
+                            </div>
+                            <div class="mt-3">
+                                <label>Work Location 2</label>
+                                <%
+                                let location2 = "";
+                                if(location && location.location2 !== ""){
+                                    location2 = location.location2;
+                                }
+                                %>
+                                <input value="<%= location2 %>" class="form-control input_address location2" type="text">                        
+                            </div>
+                            <div class="mt-3">
+                                <label>Work Location 3</label>
+                                <%
+                                let location3 = "";
+                                if(location && location.location3 !== ""){
+                                    location3 = location.location3;
+                                }
+                                %>
+                                <input value="<%= location3 %>" class="form-control input_address location3" type="text">                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+                <button class="d-inline-block btn btn-primary my-3 btn-next">Next</button>
+            </div>    
+        </form>
+        <!-- Language/Dialect Proficiency -->
+        <form class="col-md-9 col-sm-9 col-12 form-content language-dialect-proficiency" id="page3">
+            <header>
+                <h4>Language/Dialect Proficiency</h4>    
+            </header>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Language/Dialect</th>
+                        <th scope="col">Read</th>
+                        <th scope="col">Write</th>
+                        <th scope="col">Speak</th>
+                        <th scope="col">Understand</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <% 
+                            let language1 = "";
+                            let englishKey = "";
+                            if(row[0].language1 !== "{}" && row[0].language1){
+                                language1 = JSON.parse(row[0].language1);
+                                englishKey = Object.keys(language1.english);
+                            }
+                            %>
+                            <input type="hidden" name="language1" value="{}">
+                            <th scope="row">English</th>
+                            <td><input type="checkbox" class="checkbox_language1" value="read"
+                            <%  for(let i = 0; i < englishKey.length; i++){ 
+                                    if(englishKey[i] === "read"){   %>
+                                    checked
+                            <%      } 
+                                } %>
+                            >
+                            </td>
+                            <td><input type="checkbox" class="checkbox_language1" value="write"
+                            <%  for(let i = 0; i < englishKey.length; i++){ 
+                                    if(englishKey[i] === "write"){   %>
+                                    checked
+                            <%      } 
+                                } %>    
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language1" value="speak"
+                            <%  for(let i = 0; i < englishKey.length; i++){ 
+                                    if(englishKey[i] === "speak"){   %>
+                                    checked
+                            <%      } 
+                                } %>    
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language1" value="understand"
+                            <%  for(let i = 0; i < englishKey.length; i++){ 
+                                    if(englishKey[i] === "understand"){   %>
+                                    checked
+                            <%      } 
+                                } %>    
+                            ></td>
+                        </tr>
+                        <tr>
+                            <% 
+                            let language2 = "";
+                            let filipinoKey = "";
+                            if(row[0].language2 !== "{}" && row[0].language2){
+                                language2 = JSON.parse(row[0].language2);
+                                filipinoKey = Object.keys(language2.filipino);
+                            }
+                            %>
+                            <input type="hidden" name="language2" value="{}">
+                            <th scope="row">Filipino</th>
+                            <td><input type="checkbox" class="checkbox_language2" value="read"
+                            <%  for(let i = 0; i < filipinoKey.length; i++){ 
+                                    if(filipinoKey[i] === "read"){   %>
+                                    checked
+                            <%      } 
+                                } %>     
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language2" value="write"
+                            <%  for(let i = 0; i < filipinoKey.length; i++){ 
+                                    if(filipinoKey[i] === "write"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language2" value="speak"
+                            <%  for(let i = 0; i < filipinoKey.length; i++){ 
+                                    if(filipinoKey[i] === "speak"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language2" value="understand"
+                            <%  for(let i = 0; i < filipinoKey.length; i++){ 
+                                    if(filipinoKey[i] === "understand"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                        </tr>
+                        <tr>
+                            <%
+                            let language3 = "";
+                            let mandarinKey = "";
+                            if(row[0].language3 !== "{}" && row[0].language3){
+                                language3 = JSON.parse(row[0].language3);
+                                mandarinKey = Object.keys(language3.mandarin);
+                            }
+                            %>
+                            <input type="hidden" name="language3" value="{}">
+                            <th scope="row">Mandarin</th>
+                            <td><input type="checkbox" class="checkbox_language3" value="read"
+                            <%  for(let i = 0; i < mandarinKey.length; i++){ 
+                                    if(mandarinKey[i] === "read"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language3" value="write"
+                            <%  for(let i = 0; i < mandarinKey.length; i++){ 
+                                    if(mandarinKey[i] === "write"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language3" value="speak"
+                            <%  for(let i = 0; i < mandarinKey.length; i++){ 
+                                    if(mandarinKey[i] === "speak"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_language3" value="understand"
+                            <%  for(let i = 0; i < mandarinKey.length; i++){ 
+                                    if(mandarinKey[i] === "understand"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                        </tr>
+                        <tr>
+                            <%
+                            let otherLanguage = ""; 
+                            let otherLanguageKey = "";
+                            let otherLanguageObj = "";
+                            if(row[0].other_language !== "{}" && row[0].other_language){
+                                otherLanguage = JSON.parse(row[0].other_language);
+                                otherLanguageKey = Object.keys(otherLanguage)[0];
+                                otherLanguageObj = Object.keys(otherLanguage[`${otherLanguageKey}`]);
+                            }
+                            %>
+                            
+                            <th scope="row">Other: <%= otherLanguageKey %></th>
+                            <td><input type="checkbox" class="checkbox_other_language" value="read"
+                            <%  for(let i = 0; i < otherLanguageObj.length; i++){ 
+                                    if(otherLanguageObj[i] === "read"){   %>
+                                    checked
+                            <%      } 
+                                } %>     
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_other_language" value="write"
+                            <%  for(let i = 0; i < otherLanguageObj.length; i++){ 
+                                    if(otherLanguageObj[i] === "write"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_other_language" value="speak"
+                            <%  for(let i = 0; i < otherLanguageObj.length; i++){ 
+                                    if(otherLanguageObj[i] === "speak"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                            <td><input type="checkbox" class="checkbox_other_language" value="understand"
+                            <%  for(let i = 0; i < otherLanguageObj.length; i++){ 
+                                    if(otherLanguageObj[i] === "understand"){   %>
+                                    checked
+                            <%      } 
+                                } %> 
+                            ></td>
+                        </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="text-end">
+                <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+                <button class="d-inline-block btn btn-primary my-3 btn-next">Next</button>
+            </div>    
+        </form>
+        <!-- Educational Background -->
+        <form class="col-md-9 col-sm-9 col-12 form-content educational-background" id="page4">
+            <header>
+                <h4>Educational Background</h4>    
+            </header>
+            <div class="row">
+                <div class="col-lg-12 mt-2">
+                    <div>Elementary</div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].elementary_school %>" class="form-control" name="elementary_school" type="text" placeholder="School">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].elementary_course %>" class="form-control" name="elementary_course" type="text" placeholder="Course">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].elementary_year_graduated %>" class="form-control" name="elementary_year_graduated" type="text" placeholder="Year graduated">
+                    </div>
+                </div>
+                <input type="hidden" name="if_elementary_undergraduate" value="{}">
+                <div class="col-lg-12 mt-2">
+                    <%
+                    let elementaryUnderGraduate = JSON.parse(row[0].if_elementary_undergraduate);
+                    %>
+                    <div>If undergraduate</div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (elementaryUnderGraduate) ? elementaryUnderGraduate.what_level : '' %>" class="form-control elem_what_level" type="text" placeholder="What level?">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (elementaryUnderGraduate) ? elementaryUnderGraduate.last_year_attended : '' %>" class="form-control elem_last_year_attended" type="text" placeholder="Year last attended">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (elementaryUnderGraduate) ? elementaryUnderGraduate.awards_received : '' %>" class="form-control elem_awards_received" type="text" placeholder="Awards received">
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-2">
+                    <div>Secondary</div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].secondary_school %>" class="form-control" name="secondary_school" type="text" placeholder="School">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].secondary_course %>" class="form-control" name="secondary_course" type="text" placeholder="Course">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].secondary_year_graduated %>" class="form-control" name="secondary_year_graduated" type="text" placeholder="Year graduated">
+                    </div>
+                </div>
+                <input type="hidden" name="if_secondary_undergraduate" value="{}">
+                <div class="col-lg-12 mt-2">
+                    <%
+                    let secondaryUnderGraduate = JSON.parse(row[0].if_secondary_undergraduate);
+                    %>
+                    <div>If undergraduate</div>
+                    <div class="col-lg-3  col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (secondaryUnderGraduate) ? secondaryUnderGraduate.what_level : '' %>" class="form-control secondary_what_level" type="text" placeholder="What level?">
+                    </div>
+                    <div class="col-lg-3  col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (secondaryUnderGraduate) ? secondaryUnderGraduate.last_year_attended : '' %>" class="form-control secondary_last_year_attended" type="text" placeholder="Year last attended">
+                    </div>
+                    <div class="col-lg-3  col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (secondaryUnderGraduate) ? secondaryUnderGraduate.awards_received : '' %>" class="form-control secondary_awards_received" type="text" placeholder="Awards received">
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-2">
+                    <div>Tertiary</div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].tertiary_school %>" class="form-control" name="tertiary_school" type="text" placeholder="School">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].tertiary_course %>" class="form-control" name="tertiary_course" type="text" placeholder="Course">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].tertiary_year_graduated %>" class="form-control" name="tertiary_year_graduated" type="text" placeholder="Year graduated">
+                    </div>
+                </div>
+                <input type="hidden" name="if_tertiary_undergraduate" value="{}">
+                <div class="col-lg-12 mt-2">
+                    <%
+                    let tertiaryUnderGraduate = JSON.parse(row[0].if_tertiary_undergraduate);
+                    %>
+                    <div>If undergraduate</div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (tertiaryUnderGraduate) ? tertiaryUnderGraduate.what_level : '' %>" class="form-control tertiary_what_level" type="text" placeholder="What level?">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (tertiaryUnderGraduate) ? tertiaryUnderGraduate.last_year_attended : '' %>" class="form-control tertiary_last_year_attended" type="text" placeholder="Year last attended">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (tertiaryUnderGraduate) ? tertiaryUnderGraduate.awards_received : '' %>" class="form-control tertiary_awards_received" type="text" placeholder="Awards received">
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-2">
+                    <div>Graduate Studies</div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].graduate_studies_school %>" class="form-control" name="graduate_studies_school" type="text" placeholder="School">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].graduate_studies_course %>" class="form-control" name="graduate_studies_course" type="text" placeholder="Course">
+                    </div>
+                    <div class="col-lg-3 col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= row[0].gradudate_studies_year_attended %>" class="form-control" name="gradudate_studies_year_attended" type="text" placeholder="Year graduated">
+                    </div>
+                </div>
+                <input type="hidden" name="if_graduate_studies_undergraduate" value="{}">
+                <div class="col-lg-12 mt-2">
+                    <%
+                    let graduateStudiesUnderGraduate = JSON.parse(row[0].if_graduate_studies_undergraduate);
+                    %>
+                    <div>If undergraduate</div>
+                    <div class="col-lg-3  col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (graduateStudiesUnderGraduate) ? graduateStudiesUnderGraduate.what_level : '' %>" class="form-control graduate_studies_what_level" type="text" placeholder="What level?">
+                    </div>
+                    <div class="col-lg-3  col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (graduateStudiesUnderGraduate) ? graduateStudiesUnderGraduate.last_year_attended : '' %>" class="form-control graduate_studies_last_year_attended" type="text" placeholder="Year last attended">
+                    </div>
+                    <div class="col-lg-3  col-sm-12 col-12 d-inline-block mt-3">
+                        <input value="<%= (graduateStudiesUnderGraduate) ? graduateStudiesUnderGraduate.awards_received : '' %>" class="form-control graduate_studies_awards_received" type="text" placeholder="Awards received">
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+                    <button class="d-inline-block btn btn-primary my-3 btn-next">Next</button>
+                </div>
+            </div>    
+        </form>
+        <!-- Technical/Vocational And Other Training -->
+        <form class="col-md-9 col-sm-9 col-12 form-content technical-vocational-training" id="page5">
+            <header>
+                <h4>Technical/Vocational And Other Training</h4>    
+            </header>
+            <div class="row">
+                <%
+                let course = JSON.parse(row[0].course);
+                let dateFrom = JSON.parse(row[0].date_from);
+                let dateTo = JSON.parse(row[0].date_to);
+                let institution = JSON.parse(row[0].institution);
+                let award = JSON.parse(row[0].certificate);
+                %>
+                <div>Technical/Vocational And Other Training</div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (course) ? course.course1 : '' %>" class="form-control courses" type="text" placeholder="1.Training/Vocational Course">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (dateFrom) ? dateFrom.date_from1 : '' %>"  class="form-control d-inline-block date_from" type="text" placeholder="Date From">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (dateTo) ? dateTo.date_to1 : '' %>" class="form-control d-inline-block date_to" type="text" placeholder="Date To">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (institution) ? institution.institution1 : '' %>" class="form-control institutions" type="text" placeholder="Training Institution">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (award) ? award.certificate1 : '' %>" class="form-control certificates" type="text" placeholder="Certificates Received">
+                </div>
+                <div class="border-bottom col-12 mt-3"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (course) ? course.course2 : '' %>" class="form-control courses" type="text" placeholder="2.Training/Vocational Course">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (dateFrom) ? dateFrom.date_from2 : '' %>" class="form-control d-inline-block date_from" type="text" placeholder="Date From">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (dateTo) ? dateTo.date_to2 : '' %>" class="form-control d-inline-block date_to" type="text" placeholder="Date To">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (institution) ? institution.institution2 : '' %>" class="form-control institutions" type="text" placeholder="Training Institution">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (award) ? award.certificate2 : '' %>" class="form-control certificates" type="text" placeholder="Certificates Received">
+                </div>
+                <div class="border-bottom col-12 mt-3"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (course) ? course.course3 : '' %>" class="form-control courses" type="text" placeholder="3.Training/Vocational Course">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (dateFrom) ? dateFrom.date_from3 : '' %>" class="form-control d-inline-block date_from" type="text" placeholder="Date From">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (dateTo) ? dateTo.date_to3 : '' %>" class="form-control d-inline-block date_to" type="text" placeholder="Date To">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (institution) ? institution.institution3 : '' %>" class="form-control institutions" type="text" placeholder="Training Institution">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (award) ? award.certificate3 : '' %>" class="form-control certificates" type="text" placeholder="Certificates Received">
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+                <button class="d-inline-block btn btn-primary my-3 btn-next">Next</button>
+            </div>
+        </form>
+        <!-- Eligibility/Professional License -->
+        <form class="col-md-9 col-sm-9 col-12 form-content eligibility-professional-license" id="page6">
+            <header>
+                <h4>Eligibility/Professional License</h4>
+            </header>
+            <div class="row">
+                <!-- Eligibility -->
+                <%
+                let eligibility = JSON.parse(row[0].eligibility);
+                let rating = JSON.parse(row[0].rating);
+                let dateExam = JSON.parse(row[0].date_exam);
+                %>
+                <div>Eligibility/Professional License</div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (eligibility) ? eligibility.eligibility1 : '' %>" class="form-control eligibility" type="text" placeholder="1.Eligibility (Civil Service)">
+                </div>
+                <div class="col-lg-3 col-md-6 mt-3">
+                    <input value="<%= (rating) ? rating.rating1 : '' %>" class="form-control rating" type="text" placeholder="Rating">
+                </div>
+                <div class="col-lg-3 col-md-6 mt-3">
+                    <input value="<%= (dateExam) ? dateExam.date_exam1 : '' %>" class="form-control date_exam" type="text" placeholder="Date of Examination">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (eligibility) ? eligibility.eligibility2 : '' %>" class="form-control eligibility" type="text" placeholder="2.Eligibility (Civil Service)">
+                </div>
+                <div class="col-lg-3 col-md-6 mt-3">
+                    <input value="<%= (rating) ? rating.rating2 : '' %>" class="form-control rating" type="text" placeholder="Rating">
+                </div>
+                <div class="col-lg-3 col-md-6 mt-3">
+                    <input value="<%= (dateExam) ? dateExam.date_exam2 : '' %>" class="form-control date_exam" type="text" placeholder="Date of Examination">
+                </div>
+                <div class="border-bottom col-lg-12 mt-3"></div>
+                <!-- Professional License -->
+                <%
+                let professionalLicense = JSON.parse(row[0].professional_license);
+                let validUntil = JSON.parse(row[0].valid_until);
+                %>
+                <div class="col-lg-6 col-md-6 mt-3">
+                    <input value="<%= (professionalLicense) ? professionalLicense.profLicense1 : '' %>" class="form-control professional_license" type="text" placeholder="1.Professional License (PRC)">
+                </div>
+                <div class="col-lg-6 col-md-6  mt-3">
+                    <input value="<%= (validUntil) ? validUntil.validUntil1 : '' %>" class="form-control valiUntil" type="text" placeholder="Valid until">
+                </div>
+                <div class="col-lg-6 col-md-6 mt-3">
+                    <input value="<%= (professionalLicense) ? professionalLicense.profLicense2 : '' %>" class="form-control professional_license" type="text" placeholder="2.Professional License (PRC)">
+                </div>
+                <div class="col-lg-6 col-md-6 mt-3">
+                    <input value="<%= (validUntil) ? validUntil.validUntil2 : '' %>" class="form-control valid_until" type="text" placeholder="Valid until">
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+                <button class="d-inline-block btn btn-primary my-3 btn-next">Next</button>
+            </div>
+        </form>
+        <!-- Work Experience -->
+        <form class="col-md-9 col-sm-9 col-12 form-content work-experience" id="page7">
+            <header>
+                <h4>Work Experience</h4>
+            </header>
+            <div class="row row-work-experience">
+                <%
+                let companyName = JSON.parse(row[0].company_name);
+                let companyAddress = JSON.parse(row[0].company_address);
+                let position = JSON.parse(row[0].position);
+                let inclusiveDate = JSON.parse(row[0].inclusive_date);
+                let status = JSON.parse(row[0].status);
+                %>
+                <div>Work Experience</div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (companyName) ? companyName.company_name1 : '' %>" class="form-control company_name" type="text" placeholder="1.Company name">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (companyAddress) ? companyAddress.company_address1 : '' %>" class="form-control company_address" type="text" placeholder="Address (City/Municipality)">
+                </div>
+                <div class="col-12"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (position) ? position.position1 : '' %>" class="form-control position" type="text" placeholder="Position">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (inclusiveDate) ? inclusiveDate.inclusive_date1 : '' %>" class="form-control inclusive_date" type="text" placeholder="Inclusive Dates">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (status) ? status.status1 : '' %>" class="form-control status" type="text" placeholder="Status">
+                </div>
+                <div class="border-bottom col-lg-12 mt-3"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (companyName) ? companyName.company_name2 : '' %>" class="form-control company_name" type="text" placeholder="2.Company name">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (companyAddress) ? companyAddress.company_address2 : '' %>" class="form-control company_address" type="text" placeholder="Address (City/Municipality)">
+                </div>
+                <div class="col-lg-12"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (position) ? position.position2 : '' %>" class="form-control position" type="text" placeholder="Position">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (inclusiveDate) ? inclusiveDate.inclusive_date2 : '' %>" class="form-control inclusive_date" type="text" placeholder="Inclusive Dates">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (status) ? status.status2 : '' %>" class="form-control status" type="text" placeholder="Status">
+                </div>
+                <div class="border-bottom col-lg-12 mt-3"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (companyName) ? companyName.company_name3 : '' %>" class="form-control company_name" type="text" placeholder="3.Company name">
+                </div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (companyAddress) ? companyAddress.company_address3 : '' %>" class="form-control company_address" type="text" placeholder="Address (City/Municipality)">
+                </div>
+                <div class="col-12"></div>
+                <div class="col-lg-6 mt-3">
+                    <input value="<%= (position) ? position.position3 : '' %>" class="form-control position" type="text" placeholder="Position">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (inclusiveDate) ? inclusiveDate.inclusive_date3 : '' %>" class="form-control inclusive_date" type="text" placeholder="Inclusive Dates">
+                </div>
+                <div class="col-lg-3 col-6 mt-3">
+                    <input value="<%= (status) ? status.status3 : '' %>" class="form-control status" type="text" placeholder="Status">
+                </div>
+                <div class="col-lg-12 divider"></div>
+            </div>
+            <div class="text-end">
+                <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+                <button class="d-inline-block btn btn-primary my-3 btn-next">Next</button>
+            </div>
+        </form>
+        <!-- Other Skills Acquired Without Formal Training -->
+        <form class="col-md-9 col-sm-9 col-12 form-content other-skills-acquired" id="page8">
+            <header>
+                <h4>Other Skills Acquired Without Formal Training</h4>
+            </header>
+            <input type="hidden" name="skills" value="">
+            <div class="row">
+                <%
+                let skill = JSON.parse(row[0].skills);
+                %>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="automechanic" id="autoMechanic"
+                        <% if(skill && Object.values(skill).includes('automechanic')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="autoMechanic">Auto Mechanic</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="beautician" id="beautician"
+                        <% if(skill && Object.values(skill).includes('beautician')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="beautician">Beautician</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="carpentry" id="carpentry"
+                        <% if(skill && Object.values(skill).includes('carpentry')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="carpentry">Carpentry Work</label>
+                    </div> 
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="computer literate" id="computer_literate"
+                        <% if(skill && Object.values(skill).includes('computer literate')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="computer_literate">Computer Literate</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="domestic chores" id="domestic_chores"
+                        <% if(skill && Object.values(skill).includes('domestic chores')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="domestic_chores">Domestic Chores</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="driver" id="driver"
+                        <% if(skill && Object.values(skill).includes('driver')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="driver">Driver</label>
+                    </div> 
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="electrician" id="electrician"
+                        <% if(skill && Object.values(skill).includes('electrician')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="electrician">Electrician</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="embroidery" id="embroidery"
+                        <% if(skill && Object.values(skill).includes('embroidery')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="embroidery">Embroidery</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="gardening" id="gardening"
+                        <% if(skill && Object.values(skill).includes('gardening')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="gardening">Gardening</label>
+                    </div> 
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="masonry" id="masonry"
+                        <% if(skill && Object.values(skill).includes('masonry')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="masonry">Masonry</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="painter/artist" id="painter_artist"
+                        <% if(skill && Object.values(skill).includes('painter/artist')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="painter_artist">Painter/Artist</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="painting" id="painting"
+                        <% if(skill && Object.values(skill).includes('painting')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="painting">Painting Jobs</label>
+                    </div> 
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-6">
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="photography" id="photography"
+                        <% if(skill && Object.values(skill).includes('photography')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="photography">Photography</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="plumbing" id="plumbing"
+                        <% if(skill && Object.values(skill).includes('plumbing')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="plumbing">Plumbing</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="sewing" id="sewing"
+                        <% if(skill && Object.values(skill).includes('sewing')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="sewing">Sewing Dresses</label>
+                    </div> 
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="stenography" id="stenography"
+                        <% if(skill && Object.values(skill).includes('stenography')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="stenography">Stenography</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input skills" type="checkbox" value="tailoring" id="tailoring"
+                        <% if(skill && Object.values(skill).includes('tailoring')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="tailoring">Tailoring</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input other_skill" type="checkbox" id="other_skill"
+                        <% if(skill && skill.hasOwnProperty('other')){ %>
+                            checked
+                        <% } %>
+                        >
+                        <label class="form-check-label" for="other_skill">Others:</label>
+                    </div>
+                    <div>
+                        <%
+                        let otherSkill = ""; 
+                        if(skill && Object.keys(skill).includes("other")){ 
+                            otherSkill = skill['other'];
+                        }
+                        %>
+                        <input value="<%= otherSkill %>" class="form-control input_other_skill" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="text-end">
+                <button class="d-inline-block btn btn-primary my-3 btn-prev">Previous</button>
+            </div>
+        </form>
+    </main>
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Logout?</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to logout?</p>
+                </div>
+                <div class="modal-footer row-fluid py-0 pb-2">
+                    <button type="button" class="btn btn-secondary" id="btnLogout">Yes, I want</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No, I don't</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div id="messageAlert row">
+            <div class="message col-lg-5 col-md-7 col-sm-7 m-auto"></div>
+        </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginMessage"></div>
+                    <form id="loginForm">
+                        <label>Email address:
+                            <input type="text" name="email">
+                        </label>
+                        <label>Password
+                            <input type="password" name="password">
+                        </label>
+                    </form>
+                </div>
+                <div class="modal-footer row-fluid py-0 pb-2">
+                    <p class="col-lg-8 col-md-8">Don't have an account? <a href="/register">Register</a></p>
+                    <div class="">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnLogin">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Form libraries -->
+    <!-- <script src="/js/admin_control.js"></script> -->
+    <!-- jQuery plugins floating label -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/jquery.placeholder.label.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function (){
+			$('input[placeholder]').placeholderLabel();
+        })
+	</script>
+    <!-- Additional Bootstrap libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>

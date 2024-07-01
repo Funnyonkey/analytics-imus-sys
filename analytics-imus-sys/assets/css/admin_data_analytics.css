@@ -1,0 +1,15 @@
+main{
+    height: 100vh;
+    overflow: auto;
+}
+main div div{
+    margin-bottom: 50px;
+}
+#username{
+    position: fixed;
+    right: 20px;
+    z-index: 5;
+}
+.graph-container div{
+    height: 45vh;
+}

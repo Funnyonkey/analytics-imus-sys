@@ -1,0 +1,93 @@
+*{
+    font-family: sans-serif;
+}
+body{
+    background-color: #F3F4F8;
+    font-size: 16px;
+}
+/* Main */
+main{
+    text-align: left;
+    padding-top: 100px;
+
+}
+    .custom-form{
+        margin: 55px auto;
+    }
+    @media (min-width: 1024px){
+        .custom-form{
+            width: 35%;
+        }
+    }
+    .custom-label{
+        border: 1px solid #038aff;
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
+    }
+        .custom-label label{
+            padding: 0 5px;
+        }
+        .custom-label div{
+            position: relative;
+        }
+            .custom-label div img{
+                position: absolute;
+                top: 5px;
+                right: 10px;
+            }
+        .custom-label input{
+            border: 0;
+            outline: 0;
+            background-color: #F3F4F8;
+        }
+        input:focus {
+            background-color: transparent;
+        }
+        .form-control:focus {
+            background-color: transparent;
+            border-radius: 0;
+            border: 0;
+            outline: 0;
+            box-shadow: none;
+        }
+/* Login Modal */
+.modal-dialog{
+    position: absolute;
+    top: 20%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+.modal-header, .modal-footer{
+    border: none;
+    background-color: white;
+}
+    .modal-header h1{
+        text-align: center;
+        width: 100%;
+    }
+.modal-body form label{
+    display: block;
+    border: 1px solid #038aff;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+    .modal-body form label input{
+        display: block;
+        width: 100%;
+        border: none;
+        outline: none;
+    }
+/* Message Modal */
+#messageAlert{
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#messageAlert div{
+    width: 35%;
+    display: none;
+    margin: 0 auto;
+}

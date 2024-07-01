@@ -1,0 +1,73 @@
+.account-info-container{
+    width: 200px;
+    /* height: 200px; */
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 5;
+    background-color: #F3F4F8;
+    cursor: pointer;
+    display: none;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+.account-info-container a{
+    text-decoration: none;
+    color: black;
+}
+.account-info-container div:hover{
+    background-color: rgb(5, 55, 116);
+    color: white;
+}
+.account-container{
+    padding-top: 100px;
+    width: 80%;
+}
+input:focus, select:focus{
+    box-shadow: none !important;
+}
+/* Change input date text color */
+input[type=date] {
+    color: transparent;
+    /* margin: 10px 0; */
+}
+input[type=date]:focus {
+    color: black;
+}
+input:disabled, select:disabled{
+    background-color: #fff !important;
+    border: 1px solid #ccc; /* Border color */
+    cursor: not-allowed; /* Cursor style */
+}
+/* Change color for the placeholder option */
+.placeholder-option {
+    color: #999; /* Customize the color here */   
+}
+/* Ensure the color remains when the option is selected */
+select:invalid .placeholder-option {
+    color: #999;
+}
+
+/* Optionally, adjust the color for the entire select when no valid option is selected */
+select:invalid {
+    color: #999; /* Match the placeholder color */
+}
+
+/* Reset color when a valid option is selected */
+select:not(:invalid) {
+    color: #898989; /* Default or desired color for selected options */
+}
+.submit-account{
+    display: none;
+}
+.image-container{
+    position: relative;
+}
+    .close_icon{
+        position: absolute;
+        right: 0;
+    }
+    .close_icon:hover{
+        background-color: #5f6368;
+    }

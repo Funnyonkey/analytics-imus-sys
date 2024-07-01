@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PESO Imus</title>
+    <link rel="icon" type="image/png" href="/images/peso-logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/loginModal.css">
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/loginModal.css">
+    <script src="/js/loginModal.js"></script>
+    <script src="/js/register.js"></script>
+    <script src="/js/removeAccount.js"></script>
+    <script src="/js/checkLocalStorage.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg text-white custom-nav">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-title" href="/">PESO IMUS</a>
+            <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="/images/menu.svg" alt="Menu icon">
+            </button>
+            <div class="collapse navbar-collapse row custom-links" id="navbarNav">
+                <ul class="navbar-nav p-0"> 
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link apply-now">Apply Now</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link peso-link" href="/peso">PESO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link about-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item custom-nav-item d-flex justify-content-end">
+                        <div class="" id="username" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <p class="m-0"></p>
+                            <img class="" src="/images/arrow_down.svg" alt="Arrow down icon">
+                        </div>
+                        <button id="navLoginBtn" type="button" class="btn bg-primary text-white mr-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="p-3" id="register-form">
+        <form action="/create" method="POST" class="container custom-form">
+            <div class="row">
+                <h3 class="p-0">Registration</h3>
+                <div class="col-lg-12 col-md-8 col-sm-12 p-0">
+                    <% if(typeof result !== "undefined" && result === "success"){ %>
+                    <p class="alert alert-success" id="success">Successfully registered!</p>
+                    <% }
+                    else if(typeof result !== "undefined"){ %>
+                    <p class="alert alert-danger" id="error"><%= result %></p>
+                    <% } %>
+                </div>
+                <div class="col-lg-12 col-md-8 col-sm-12 p-0"> <!-- On large screens, take 40% width, on medium screens 50%, on small screens occupy the whole width -->
+                    <div class="mb-3 d-block custom-label">
+                        <label for="name" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="name" name="username">
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-8 col-sm-12 p-0"> <!-- Same widths for consistency -->
+                    <div class="mb-3 d-block custom-label">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-8 col-sm-12 p-0"> <!-- Same widths for consistency -->
+                    <div class="mb-3 d-block custom-label">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="password-container">
+                            <input type="password" class="form-control" id="password" name="password">
+                            <img class="visible-password" src="/images/visibility_off.svg" alt="Visible icon">   
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-8 col-sm-12 p-0"> <!-- Same widths for consistency -->
+                    <div class="mb-3 d-block custom-label ">
+                        <label for="confirm_password" class="form-label">Confirm password</label>
+                        <div class="confirm-password-container">
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                            <img class="visible-confirm-password" src="/images/visibility_off.svg" alt="Visible off icon">   
+                        </div>
+                    </div>
+                </div>
+                <p class="col-lg-10 col-md-6 my-1 py-1 p-0">Already have an account? <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Login</a></p>
+                <button type="submit" class="col-lg-2 col-md-2 my-1 btn btn-primary py-1 px-0 btn-submit">Register</button>
+            </div>
+        </form>
+    </main>
+     <!-- Login Modal -->
+     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div id="messageAlert row"> -->
+        <div class="message col-lg-5 col-md-7 col-sm-7 m-auto"></div>
+        <!-- </div> -->
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="loginMessage">
+                    </div>
+                    <form id="loginForm">
+                        <label>Email address:
+                            <input type="text" name="email">
+                        </label>
+                        <label>Password
+                            <input type="password" name="password">
+                            <img class="login-password" src="/images/visibility_off.svg" alt="">
+                        </label>
+                    </form>
+                </div>
+                <div class="modal-footer row-fluid py-0 pb-2">
+                    <p class="col-lg-8 col-md-8">Don't have an account? <a href="/register">Register</a></p>
+                    <div class="">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="btnLogin">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Logout?</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to logout?</p>
+                </div>
+                <div class="modal-footer row-fluid py-0 pb-2">
+                    <button type="button" class="btn btn-secondary" id="btnLogout">Yes, I want</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No, I don't</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+</html>
