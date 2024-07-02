@@ -75,6 +75,7 @@ $(document).ready(function(){
                 }
                 // console.log(response[0].image_path)
                 if(response[0].image_path !== null){
+                    console.log(response[0].image_path);
                     $(".image").attr("src", response[0].image_path);
                     $(".profile-picture img").attr("src", response[0].image_path);
                 }

@@ -91,6 +91,7 @@ class Users{
 
         let filePath = req.file ? req.file.path : null;
         let filename;
+        console.log(filename)
         if(filePath){
             filename = "/" + filePath.replace(/uploads\\/g, '');
         }
