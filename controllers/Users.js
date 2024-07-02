@@ -1,25 +1,18 @@
-const model = require("../models/User");
 const session = require('express-session');
 const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
+const model = require('../models/User');  // Replace with your user model path
+const { s3Uploadv2 } = require('../s3Service');
+require('dotenv').config();
 
-// Ensure the uploads directory exists
+// Ensure the uploads directory exists (optional if not using local storage)
 const dir = './uploads';
 if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
 }
 
-// Multer configuration for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 class Users{
@@ -66,19 +59,28 @@ class Users{
             }
         })
     }
-    upload_image(req, res, next){
+    upload_image(req, res, next) {
         const uploadSingle = upload.single('image');
-        
-        uploadSingle(req, res, function (err) {
+
+        uploadSingle(req, res, async function (err) {
             if (err) {
                 return res.status(400).send('File upload failed.');
             }
-            next();
+            const file = req.file;  // Use req.file since multer.single() was used
+
+            try {
+                const result = await s3Uploadv2(file);  // Assuming s3Uploadv2 returns a promise
+                req.s3FileUrl = result.Location;  // Assuming result.Location is the S3 URL
+                
+                next();
+            } catch (error) {
+                console.error(error);
+                return res.status(500).send('S3 upload failed.');
+            }
+            // next();
         });
     }
     update_user_by_id(req, res){
-        // Access form data
-
         // console.log(req.body);
         const id = req.body.id;
         const username = req.body.username;
@@ -89,14 +91,8 @@ class Users{
         const birthdate = req.body.birthdate;
         const civil_status = req.body.civil_status;
 
-        let filePath = req.file ? req.file.path : null;
-        let filename;
-        if(filePath){
-            filename = "/" + filePath.replace(/uploads\\/g, '');
-        }
-        if(req.body.image === '/images/default_profile.jpg'){
-            filename = '/images/default_profile.jpg';
-        }
+        let filename = req.s3FileUrl || (req.body.image === '/images/default_profile.jpg' ? '/images/default_profile.jpg' : (req.file ? `/${req.file.path.replace(/uploads\\/g, '')}` : null));
+
         let user = {
             id: id,
             username: username,
@@ -108,11 +104,15 @@ class Users{
             civil_status: civil_status,
             filename: filename
         }
+        console.log("User: ", user);
+
         model.update_account_by_id(user, (error) => {
             if(error){
                 console.error(error);
             }
         });
+
+        res.json(filename);
     }   
     /* For admin*/
     admin_apply(req, res){

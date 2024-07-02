@@ -3,6 +3,9 @@ const model = require("../models/User"); /* move the controller methods to Form 
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const multer = require('multer');
+const { s3Uploadv2 } = require('../s3Service');
+require('dotenv').config();
+const asyncForEach = require('async/forEach');
 
 // Ensure the uploads directory exists
 const dir = './proofs';
@@ -10,22 +13,13 @@ if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
 }
 
-// Multer configuration for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'proofs/');
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname);
-    }
-});
-
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 class Forms{
     upload_certificate(req, res){
         // Use multer to handle the upload
-        upload.array('selected-certificate-file[]')(req, res, function (err) {
+        upload.array('selected-certificate-file[]')(req, res, async function (err) {
             if(err){
                 return res.status(400).send('File upload failed.');
             }
@@ -34,20 +28,29 @@ class Forms{
                 return res.status(400).send('No files uploaded.');
             }
 
-            console.log(req.files)
-            // Log each uploaded file's path
-            let files = {};
-            let num = 0;
-            req.files.forEach(file => {
-                let filename = "/" + file.path.replace(/\\/g, '/'); // Normalize the file path
-                files[num] = filename;
-                num++;
-            });
-            res.json(files);
+            const files = req.files;  // Use req.files since multer.array() was used
+            const s3Urls = [];
+
+            try {
+                console.log(files);
+                // Upload each file to S3 and collect the S3 URLs
+                await asyncForEach(files, async (file) => {
+                    const result = await s3Uploadv2(file);  // Assuming s3Uploadv2 returns a promise with result.Location
+                    s3Urls.push(result.Location);  // Collect S3 URL for each file
+                });
+
+                req.s3FileUrls = s3Urls;  // Store all S3 URLs in req.s3FileUrls
+                console.log("Certificate: ", s3Urls);   
+            } catch (error) {
+                console.error(error);
+                return res.status(500).send('S3 upload failed.');
+            }
+
+            res.json(s3Urls);
         });
     }
     upload_eligibility_license(req, res){
-        upload.array('selected-eligibility-license-file[]')(req, res, function (err) {
+        upload.array('selected-eligibility-license-file[]')(req, res, async function (err) {
             if(err){
                 return res.status(400).send('File upload failed.');
             }
@@ -55,15 +58,23 @@ class Forms{
             if(!req.files || req.files.length === 0){
                 return res.status(400).send('No files uploaded.');
             }
-            // Log each uploaded file's path
-            let files = {};
-            let num = 0;
-            req.files.forEach(file => {
-                let filename = "/" + file.path.replace(/\\/g, '/'); // Normalize the file path
-                files[num] = filename;
-                num++;
-            });
-            res.json(files);
+            const files = req.files;  // Use req.files since multer.array() was used
+            const s3Urls = [];
+
+            try {
+                // Upload each file to S3 and collect the S3 URLs
+                await asyncForEach(files, async (file) => {
+                    const result = await s3Uploadv2(file);  // Assuming s3Uploadv2 returns a promise with result.Location
+                    s3Urls.push(result.Location);  // Collect S3 URL for each file
+                });
+
+                req.s3FileUrls = s3Urls;  // Store all S3 URLs in req.s3FileUrls
+                console.log("Eligibility/License: ", s3Urls);   
+            } catch (error) {
+                console.error(error);
+                return res.status(500).send('S3 upload failed.');
+            }
+            res.json(s3Urls);
         });
     }
     add(req, res){

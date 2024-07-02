@@ -409,9 +409,11 @@ $(document).ready(function(){
                             a.style.color = "black";
                             a.style.borderRadius = "7px";
                             a.style.textDecoration = "none";
-                            let relativePath = certificatePath[key].replace('proofs/', '');
-                            a.textContent = relativePath.replace(/^[^-]*-/, '');;
-                            a.setAttribute('href', relativePath);
+                            // let relativePath = certificatePath[key].replace('proofs/', '');
+                            // a.textContent = relativePath.replace(/^[^-]*-/, '');;
+                            // a.setAttribute('href', relativePath);
+                            a.textContent = certificatePath[key];
+                            a.setAttribute("href", certificatePath[key])
                             a.setAttribute('target', "_blank");
                             let closeIcon = document.createElement("img");
                             closeIcon.className = "close-certificate";

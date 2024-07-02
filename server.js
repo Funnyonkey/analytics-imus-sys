@@ -6,6 +6,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 const multer = require('multer');
+const { s3Uploadv2 } = require('./s3Service');
+require("dotenv").config();
 
 app.use(session({
     secret: 'keyboardkitteh',
@@ -38,6 +40,30 @@ app.use('/data_analytics', routes);
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// const storage = multer.memoryStorage();
+
+// const fileFilter = (req, file, cb) => {
+//     if(file.mimetype.split("/")[0] === "image"){
+//         cb(null, true);
+//     }
+//     else{
+//         cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE"), false);
+//     }
+// }
+
+// const upload = multer({
+//     storage,
+//     fileFilter,
+//     limits: { fileSize: 1000000000, files: 2 }
+//  });
+
+// app.post("/update_user_by_id", upload.array("file"), async (req, res) => {
+//     // const file = req.file;
+//     console.log(req.files)
+//     // const result = await s3Uploadv2(file);
+//     res.json({ status: "success"});
+// });
 
 app.listen(port, () => {
     console.log('http://localhost:3000');

@@ -148,13 +148,14 @@ $(document).ready(function(){
             contentType: false, // Set content type to false for FormData
             success: function(response){
                 console.log(response);
+                $(".profile-picture-container").attr("src", response);
             },
             error: function(error){
                 console.error(error);
             }
         });
 
-        location.reload();
+        // location.reload();
 
         let enabledInput = $(".account-container").find("input");
         let enabledSelect = $(".account-container").find("select");        
