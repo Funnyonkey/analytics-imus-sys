@@ -655,7 +655,6 @@ class Forms{
                 console.error(error);
             }
             if(row){
-               let total_applicant = row.length;
                 // Create a new PDF document
                 const doc = new PDFDocument();
                 const margin = 40;
@@ -724,7 +723,11 @@ class Forms{
                     // console.log("Margin: ", contentMargin)
                     contentMargin += 18;
                 }
-                let totalApplicant= `TOTAL APPLICANTS: ${total_applicant}`;
+                let total = 0;
+                for(let key in row){
+                    total += row[key].total_records;
+                }
+                let totalApplicant= `TOTAL APPLICANTS: ${total}`;
                 doc.fontSize(12).font('Helvetica-Bold').text(totalApplicant, 250, contentMargin+26);
 
                 // Pad month and day with leading zeros if necessary
